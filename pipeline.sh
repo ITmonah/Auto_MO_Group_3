@@ -26,7 +26,7 @@ else
 fi
 
 
-python split_data.py
+python split.py
 if [ $? -ne 0 ]; then
     echo "split error"
     deactivate
@@ -42,14 +42,14 @@ if [ $? -ne 0 ]; then
 fi
 echo "preprocess finished"
 
-python train_model.py
+python train.py
 if [ $? -ne 0 ]; then
     echo "train error"
     deactivate
     exit 1
 fi
 
-python test_model.py
+python test.py
 if [ $? -ne 0 ]; then
     echo "test error"
     deactivate
