@@ -56,4 +56,16 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+read -r answer
+if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+    echo "Запуск интерактивного предсказания..."
+    venv/bin/python predict.py
+    if [ $? -ne 0 ]; then
+        echo "Ошибка при выполнении predict.py."
+        exit 1
+    fi
+else
+    echo "Для запуска предсказаний вручную выполните: venv/bin/python predict.py"
+fi
+
 deactivate
