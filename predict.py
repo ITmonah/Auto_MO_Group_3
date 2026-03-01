@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import pickle
 import numpy as np
+import pandas as pd
 import sys
 
 def load_artifacts():
@@ -30,7 +31,7 @@ def parse_input(line):
         print("Ошибка: нужно ввести ровно 5 значений разделённых пробелами")
         return None
     values = []
-    for i, token in enumerate(tokens):
+    for token in tokens:
         if token == '_':
             values.append(np.nan)
         else:
@@ -60,11 +61,11 @@ def predict_interactive(model, imputer, scaler):
         if values is None:
             continue 
         
-        X = np.array([values])
-        X_imputed = imputer.transform(X)
+        X_df = pd.DataFrame([values], columns=feature_names)
+        X_imputed = imputer.transform(X_df)
         X_scaled = scaler.transform(X_imputed)
-        
-        pred = model.predict(X_scaled)[0]
+        X_scaled_df = pd.DataFrame(X_scaled, columns=feature_names)
+        pred = model.predict(X_scaled_df)[0]
         
         print(f"Предсказанные глобальные продажи: {pred:.2f} млн копий\n")
 
