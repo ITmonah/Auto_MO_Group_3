@@ -24,34 +24,49 @@ def load_artifacts():
         sys.exit(1)
     return model, imputer, scaler
 
+def parse_input(line):
+    tokens = line.strip().split()
+    if len(tokens) != 5:
+        print("Ошибка: нужно ввести ровно 5 значений разделённых пробелами")
+        return None
+    values = []
+    for i, token in enumerate(tokens):
+        if token == '_':
+            values.append(np.nan)
+        else:
+            try:
+                values.append(float(token))
+            except ValueError:
+                print(f"Ошибка: '{token}' не является числом и не является символом пропуска '_'")
+                return None
+    return values
+
 def predict_interactive(model, imputer, scaler):
     feature_names = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Year']
-
+    print("\nПредсказание глобальных продаж")
+    print("Введите пять чисел через пробел в следующем порядке:")
+    print("NA_Sales  EU_Sales  JP_Sales  Other_Sales  Year")
+    print("Если какое-то значение неизвестно, поставьте символ '_'")
+    print("Для выхода введите 'q'\n")
+    
     while True:
-        values = []
-        for feat in feature_names:
-            while True:
-                inp = input(f"{feat}: ").strip()
-                if inp == "":
-                    values.append(np.nan)
-                    break
-                try:
-                    val = float(inp)
-                    values.append(val)
-                    break
-                except ValueError:
-                    print("Ошибка: введите число или оставьте пустым")
-
+        inp = input("Введите данные: ").strip()
+        if inp.lower() == 'q':
+            break
+        if not inp:
+            continue
+        
+        values = parse_input(inp)
+        if values is None:
+            continue 
+        
         X = np.array([values])
         X_imputed = imputer.transform(X)
         X_scaled = scaler.transform(X_imputed)
         
         pred = model.predict(X_scaled)[0]
         
-        print(f"\nПредсказанные глобальные продажи: {pred:.2f} копий\n")
-        cont = input("Хотите сделать еще одно предсказание? (y/n): ").strip().lower()
-        if cont != 'y':
-            break
+        print(f"Предсказанные глобальные продажи: {pred:.2f} млн копий\n")
 
 def main():
     model, imputer, scaler = load_artifacts()
