@@ -11,7 +11,7 @@ def main():
         train = pd.read_csv('train.csv')
         test = pd.read_csv('test.csv')
     except FileNotFoundError as e:
-        print(f"Ошибка: {e}")
+        print(f"error: {e}")
         sys.exit(1)
 
     numeric_features = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Year']
