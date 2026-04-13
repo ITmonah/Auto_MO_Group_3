@@ -1,7 +1,7 @@
 Сборка образа
 
 ```
-docker build -t wine-classifier:v1
+docker build -t wine-classifier:v1 .
 ```
 
 Запуск сервиса
