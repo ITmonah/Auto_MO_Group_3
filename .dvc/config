@@ -1,0 +1,4 @@
+[core]
+    remote = lab4_local
+['remote "lab4_local"']
+    url = C:\Users\likip\dvc_remote\Auto_MO_Group_3_lab4
