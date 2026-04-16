@@ -1,13 +1,13 @@
 # lab4
 
-`DVC remote`: `C:\Users\likip\dvc_remote\Auto_MO_Group_3_lab4`
+`DVC remote`: `dvc_remote\Auto_MO_Group_3_lab4`
 
 ## Commands
 
 ```powershell
 python -m pip install --user -r lab4\requirements.txt
 python -m dvc init
-python -m dvc remote add -d lab4_local C:\Users\likip\dvc_remote\Auto_MO_Group_3_lab4
+python -m dvc remote add -d lab4_local dvc_remote\Auto_MO_Group_3_lab4
 ```
 
 ```powershell
