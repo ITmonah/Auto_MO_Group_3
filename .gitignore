@@ -211,3 +211,9 @@ __marimo__/
 *.pkl
 .tmp/
 .venv/
+lab5_packages/
+lab5_vendor/
+lab5_wheels/
+lab5_tmp/
+lab5_tmp2/
+pytest-cache-files-*/
