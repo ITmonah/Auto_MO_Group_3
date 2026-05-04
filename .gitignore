@@ -209,3 +209,5 @@ __marimo__/
 *.pt
 *.csv
 *.pkl
+.tmp/
+.venv/
