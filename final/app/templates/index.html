@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KGO Fill Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">FastAPI ML product</p>
+            <h1>KGO Fill Detection</h1>
+            <p>Загрузите изображение платформы, чтобы получить класс заполненности и координаты найденного объекта.</p>
+        </section>
+
+        <section class="workbench">
+            <form method="post" enctype="multipart/form-data" class="form">
+                <label>
+                    <span>Изображение</span>
+                    <input type="file" name="image" accept="image/*" required>
+                </label>
+                <button type="submit">Запустить</button>
+            </form>
+
+            <div class="status">
+                <h2>Модели</h2>
+                <ul>
+                    {% for model in models %}
+                    <li class="{{ 'ok' if model.available else 'missing' }}">
+                        <strong>{{ model.name }}</strong>
+                        <span>{{ model.path }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+
+        {% if error %}
+        <section class="message error">
+            <h2>Ошибка</h2>
+            <p>{{ error }}</p>
+        </section>
+        {% endif %}
+
+        {% if result %}
+        <section class="result">
+            <div>
+                <h2>Результат</h2>
+                <dl>
+                    <div><dt>Класс</dt><dd>{{ result.label if result.label else "объект не найден" }}</dd></div>
+                    <div><dt>Уверенность</dt><dd>{{ result.confidence }}</dd></div>
+                    <div><dt>bbox</dt><dd>{{ result.bbox if result.bbox else "нет" }}</dd></div>
+                </dl>
+            </div>
+            <img src="{{ result.annotated_image }}" alt="Результат обработки">
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>

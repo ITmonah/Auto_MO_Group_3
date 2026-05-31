@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "kgo-fill-detection:${BUILD_NUMBER}"
+        PIP_DISABLE_PIP_VERSION_CHECK = "1"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install') {
+            steps {
+                dir('final') {
+                    sh 'python -m venv .venv'
+                    sh '. .venv/bin/activate && pip install -r requirements-dev.txt'
+                }
+            }
+        }
+
+        stage('Pull DVC data') {
+            steps {
+                dir('final') {
+                    sh '. .venv/bin/activate && dvc pull'
+                }
+            }
+        }
+
+        stage('Data quality') {
+            steps {
+                dir('final') {
+                    sh '. .venv/bin/activate && python scripts/validate_data.py --dataset data/raw --classes kgo_empty kgo_full --min-images-per-class 1'
+                }
+            }
+        }
+
+        stage('Unit tests') {
+            steps {
+                dir('final') {
+                    sh '. .venv/bin/activate && pytest -q'
+                }
+            }
+        }
+
+        stage('Build Docker image') {
+            steps {
+                dir('final') {
+                    sh 'docker build -t ${IMAGE_NAME} .'
+                }
+            }
+        }
+    }
+}

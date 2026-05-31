@@ -1,0 +1,4 @@
+-r requirements.txt
+
+pytest==8.3.5
+dvc[s3]==3.59.1

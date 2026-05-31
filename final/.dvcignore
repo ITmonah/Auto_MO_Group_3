@@ -1,0 +1,5 @@
+# Add patterns of files dvc should ignore.
+.venv/
+models/
+__pycache__/
+.pytest_cache/

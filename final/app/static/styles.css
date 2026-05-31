@@ -1,0 +1,169 @@
+:root {
+    --bg: #f7f8f5;
+    --panel: #ffffff;
+    --line: #d8dfd4;
+    --text: #172017;
+    --muted: #5f6c5e;
+    --accent: #2f6f5e;
+    --accent-dark: #245548;
+    --danger: #a03434;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.page {
+    width: min(1040px, calc(100% - 32px));
+    margin: 28px auto 48px;
+    display: grid;
+    gap: 18px;
+}
+
+.hero,
+.workbench,
+.message,
+.result {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+}
+
+.hero h1,
+h2 {
+    margin: 0 0 12px;
+}
+
+.hero p {
+    max-width: 680px;
+    color: var(--muted);
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.workbench {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+    gap: 24px;
+    align-items: start;
+}
+
+.form {
+    display: grid;
+    gap: 14px;
+}
+
+label {
+    display: grid;
+    gap: 8px;
+    font-weight: 600;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+}
+
+button {
+    width: fit-content;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--accent);
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--accent-dark);
+}
+
+.status ul {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    list-style: none;
+}
+
+.status li {
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-left-width: 4px;
+    border-radius: 6px;
+}
+
+.status li.ok {
+    border-left-color: var(--accent);
+}
+
+.status li.missing {
+    border-left-color: var(--danger);
+}
+
+.status span,
+dd {
+    display: block;
+    color: var(--muted);
+    word-break: break-word;
+}
+
+.error {
+    border-color: rgba(160, 52, 52, 0.35);
+}
+
+.error p {
+    color: var(--danger);
+}
+
+.result {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 22px;
+}
+
+dl {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+dt {
+    font-weight: 700;
+}
+
+dd {
+    margin: 3px 0 0;
+}
+
+.result img {
+    max-width: 100%;
+    max-height: 560px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+@media (max-width: 760px) {
+    .workbench,
+    .result {
+        grid-template-columns: 1fr;
+    }
+}

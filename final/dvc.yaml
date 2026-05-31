@@ -1,0 +1,12 @@
+stages:
+  data_quality:
+    cmd: python scripts/validate_data.py --dataset data/raw --classes kgo_empty kgo_full --min-images-per-class 1
+    deps:
+      - scripts/validate_data.py
+      - data/raw
+  tests:
+    cmd: pytest -q
+    deps:
+      - app
+      - scripts
+      - tests

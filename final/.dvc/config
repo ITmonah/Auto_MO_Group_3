@@ -1,0 +1,4 @@
+[core]
+    remote = dataset-remote
+['remote "dataset-remote"']
+    url = s3://urfu-kgo-final-project/data
